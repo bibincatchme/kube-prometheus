@@ -17,6 +17,9 @@ These include:
   * **ServiceMonitor**, which declaratively specifies how groups of services should be monitored. The Operator automatically generates Prometheus scrape configuration based on the definition. The Prometheus resource connects to ServiceMonitors using a serviceMonitorSelector field. This way Prometheus sees what targets (apps) have to be scrapped.
   * **PrometheusRule**, which defines a desired Prometheus rule file, which can be loaded by a Prometheus instance containing Prometheus alerting and recording rules.
   * **Alertmanager**, which defines a desired Alertmanager deployment. The Operator ensures at all times that a deployment matching the resource definition is running.
+  * **PodMonitor**, which declaratively specifies how group of pods should be monitored. The Operator automatically generates Prometheus scrape configuration based on the     current state of the objects in the API server.
+* **Probe**, which declaratively specifies how groups of ingresses or static targets should be monitored. The Operator automatically generates Prometheus scrape configuration based on the definition.
+
 
 
 ### How it Works
@@ -40,10 +43,10 @@ The user can either manually specify this configuration or let the Operator gene
         * Changes discovered by prometheus-config-reloader and reload prometheus
         * Prometheus reloads configuration after reboot  and then collects new metrics according to this logic
 ### Alertmanager Pod
-As in the case with prometheus, 2 containers  run in one pod:
+ 2 containers are launched in the Alertmanager Pod
  1. alertmanager
  2. config-reloader – add-on to alertmanager which monitors changes and reloads alert manager via HTTP request
 
 ### Grafana Pod
   1. Grafana
-  2. Grafana-sc-dashboard – an add-on to grafana which will subsribe to ConfigMaps resources and generate json dashboards for Grafana based on them
+  2. Grafana-sc-dashboard – an add-on to grafana which will subsribe to ConfigMaps resources and generate json dashboards for Grafana based on them.
