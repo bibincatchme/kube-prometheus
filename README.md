@@ -9,9 +9,10 @@ A Kubernetes Operator might be able to:
  
 Kubernetes Operators make extensive use of Custom Resource Definitions (or CRDs) to create context-specific entities and objects that will be accessed like any other Kubernetes API resource. 
 
+### Prometheus Operator
 The *Prometheus Operator* for Kubernetes provides easy monitoring definitions for Kubernetes services, deployment and management of Prometheus instance
-These include:
 
+These include:
   * **Prometheus**, which defines the desired Prometheus deployment. The Operator ensures at all times that a deployment matching the resource definition is running.
   * **ServiceMonitor**, which declaratively specifies how groups of services should be monitored. The Operator automatically generates Prometheus scrape configuration based on the definition. The Prometheus resource connects to ServiceMonitors using a serviceMonitorSelector field. This way Prometheus sees what targets (apps) have to be scrapped.
   * **PrometheusRule**, which defines a desired Prometheus rule file, which can be loaded by a Prometheus instance containing Prometheus alerting and recording rules.
@@ -31,7 +32,8 @@ The user can either manually specify this configuration or let the Operator gene
   1. Prometheus
   2. prometheus-config-reloader – an add-on to prometheus that monitors changes in prometheus.yaml and an HTTP request reloads the prometheus configuration
   3. rules-configmap-reloader – monitors changes in the alerts file and also reloads prometheus
-      Service Monitors Processing Principle:
+  
+      **Service Monitors** Processing Principle:
         * Prometheus Operator subscribes to Service Monitor resource events, monitoring their addition, removal or modification.
         * Based on ServiceMonitors, the prometheus generates part of the configuration file and stores the secret in kubernetes
         * From kubernetes secret config gets into under
